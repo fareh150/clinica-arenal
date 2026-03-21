@@ -1,0 +1,45 @@
+---
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: object;
+  noindex?: boolean;
+}
+
+const { title, description, canonical, ogImage, schema, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      schema={schema}
+      noindex={noindex}
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1 pt-16 md:pt-20">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton />
+  </body>
+</html>

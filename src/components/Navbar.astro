@@ -1,0 +1,193 @@
+---
+import { services } from '../data/services';
+
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/quienes-somos', label: 'Quiénes Somos' },
+  { href: '/tratamientos', label: 'Tratamientos', hasDropdown: true },
+  { href: '/instalaciones', label: 'Instalaciones' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contacto', label: 'Contacto' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+  <nav class="container-content" aria-label="Navegación principal">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 flex-shrink-0" aria-label="Clínica Arenal — Inicio">
+        <img
+          src="/images/logo-clinica-arenal.jpg"
+          alt="Clínica Arenal — Fisioterapia y Osteopatía"
+          width="48"
+          height="48"
+          class="h-10 w-auto md:h-12 rounded-lg"
+        />
+        <div class="hidden sm:block">
+          <span class="block text-base font-bold text-dark leading-tight">Clínica Arenal</span>
+          <span class="block text-xs text-gray-secondary">Fisioterapia · Osteopatía · Pilates</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <ul class="hidden lg:flex items-center gap-1" role="list">
+        {navLinks.map((link) => (
+          <li class={link.hasDropdown ? 'relative group' : ''}>
+            {link.hasDropdown ? (
+              <div>
+                <button
+                  class={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    currentPath.startsWith('/tratamientos')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-gray-text hover:text-primary hover:bg-gray-50'
+                  }`}
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {link.label}
+                  <svg class="w-4 h-4 group-hover:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                <!-- Dropdown -->
+                <div class="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div class="p-2">
+                    <a
+                      href="/tratamientos"
+                      class="block px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/5 rounded-lg mb-1"
+                    >
+                      Ver todos los tratamientos
+                    </a>
+                    <hr class="border-gray-100 mb-1" />
+                    {services.map((service) => (
+                      <a
+                        href={`/tratamientos/${service.slug}`}
+                        class="block px-3 py-1.5 text-sm text-gray-text hover:text-primary hover:bg-gray-50 rounded-lg"
+                      >
+                        {service.title}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <a
+                href={link.href}
+                class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  currentPath === link.href
+                    ? 'text-primary bg-primary/10'
+                    : 'text-gray-text hover:text-primary hover:bg-gray-50'
+                }`}
+              >
+                {link.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <!-- CTA + Mobile -->
+      <div class="flex items-center gap-3">
+        <a
+          href="/contacto"
+          class="hidden sm:inline-flex btn-primary text-sm px-4 py-2.5"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Pide Cita
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button
+          id="menu-toggle"
+          class="lg:hidden p-2 rounded-lg text-gray-text hover:bg-gray-50 transition-colors"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg id="icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden lg:hidden border-t border-gray-100 py-4"
+      aria-hidden="true"
+    >
+      <ul class="flex flex-col gap-1" role="list">
+        {navLinks.map((link) => (
+          <li>
+            {link.hasDropdown ? (
+              <div>
+                <a
+                  href="/tratamientos"
+                  class={`block px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
+                    currentPath.startsWith('/tratamientos')
+                      ? 'text-primary bg-primary/10'
+                      : 'text-gray-text hover:text-primary hover:bg-gray-50'
+                  }`}
+                >
+                  Tratamientos
+                </a>
+                <div class="pl-4 mt-1 flex flex-col gap-0.5">
+                  {services.map((service) => (
+                    <a
+                      href={`/tratamientos/${service.slug}`}
+                      class="block px-3 py-1.5 text-xs text-gray-secondary hover:text-primary rounded-lg"
+                    >
+                      {service.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a
+                href={link.href}
+                class={`block px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  currentPath === link.href
+                    ? 'text-primary bg-primary/10'
+                    : 'text-gray-text hover:text-primary hover:bg-gray-50'
+                }`}
+              >
+                {link.label}
+              </a>
+            )}
+          </li>
+        ))}
+        <li class="pt-2">
+          <a href="/contacto" class="btn-primary w-full justify-center text-sm">
+            Pide tu Cita
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden', !isHidden);
+    menu?.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+    toggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+    iconOpen?.classList.toggle('hidden', isHidden);
+    iconClose?.classList.toggle('hidden', !isHidden);
+  });
+</script>
