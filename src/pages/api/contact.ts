@@ -32,8 +32,8 @@ export const POST: APIRoute = async ({ request }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Clínica Arenal Web <noreply@fisioarenal.com>',
-        to: ['clinica@fisioarenal.com'],
+        from: 'Clínica Arenal Web <onboarding@resend.dev>',
+        to: [import.meta.env.RESEND_TO_EMAIL || 'clinica@fisioarenal.com'],
         subject: `Nueva consulta web — ${name}`,
         html: `
           <h2>Nueva consulta desde la web</h2>
