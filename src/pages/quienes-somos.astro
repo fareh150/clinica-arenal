@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { team } from '../data/team';
+---
+
+<BaseLayout
+  title="Nuestro Equipo | Clínica Arenal - Fisioterapeutas en Carabanchel"
+  description="Conoce al equipo de fisioterapeutas de la Clínica Arenal en Carabanchel. Silvia Arenal, Carlos Herrera y Carla Barra. Más de 14 años de experiencia."
+  canonical="https://www.fisioarenal.com/quienes-somos"
+>
+
+  <!-- HERO -->
+  <section class="bg-gray-light section-padding">
+    <div class="container-content text-center">
+      <span class="text-primary font-semibold text-sm uppercase tracking-wider">El equipo</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-dark mt-2 mb-4">
+        Nuestro Equipo de Fisioterapeutas
+      </h1>
+      <p class="text-gray-secondary text-lg max-w-2xl mx-auto leading-relaxed">
+        Fisioterapeutas y osteópatas con amplia experiencia que, con un trato cercano y profesional,
+        ponemos nuestros servicios a tu disposición para tratar tus dolencias y mejorar tu bienestar.
+      </p>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="section-padding">
+    <div class="container-content">
+      <div class="flex flex-col gap-16">
+        {team.map((member, index) => (
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+
+            <!-- Foto -->
+            <div class={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+              <div class="relative">
+                <img
+                  src={member.image}
+                  alt={`${member.name} — ${member.role} en Clínica Arenal`}
+                  class="rounded-2xl w-full max-w-sm mx-auto object-cover shadow-lg"
+                  width="400"
+                  height="480"
+                />
+                {index === 0 && (
+                  <div class="absolute -bottom-4 -right-4 bg-primary text-white rounded-xl p-3 shadow-lg text-center hidden lg:block">
+                    <span class="block text-xl font-bold">14+</span>
+                    <span class="text-xs text-white/80">años de exp.</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+              <h2 class="text-2xl md:text-3xl font-bold text-dark mb-1">{member.name}</h2>
+              <p class="text-primary font-semibold mb-4">{member.role}</p>
+              <p class="text-gray-secondary leading-relaxed mb-6">{member.bio}</p>
+
+              {member.specialties && (
+                <div class="mb-6">
+                  <h3 class="text-sm font-semibold text-dark uppercase tracking-wider mb-3">Especialidades</h3>
+                  <div class="flex flex-wrap gap-2">
+                    {member.specialties.map((spec) => (
+                      <span class="bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">
+                        {spec}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <h3 class="text-sm font-semibold text-dark uppercase tracking-wider mb-3">Formación</h3>
+                <ul class="space-y-2">
+                  {member.qualifications.map((q) => (
+                    <li class="flex items-start gap-2 text-sm text-gray-secondary">
+                      <svg class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      {q}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="section-padding bg-gray-light">
+    <div class="container-content">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Nuestros Valores</h2>
+        <p class="section-subtitle mx-auto">Lo que nos define como clínica y como equipo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: '🤝', title: 'Trato cercano', description: 'Atención personalizada donde cada paciente es único y recibe un trato humano y empático.' },
+          { icon: '🎓', title: 'Formación continua', description: 'Nuestro equipo se forma constantemente para ofrecerte las técnicas más efectivas y actualizadas.' },
+          { icon: '🔬', title: 'Evidencia científica', description: 'Aplicamos técnicas respaldadas por la evidencia científica para garantizar resultados óptimos.' },
+          { icon: '❤️', title: 'Vocación', description: 'Amamos lo que hacemos. Nuestra vocación por la salud es el motor que impulsa nuestro trabajo cada día.' },
+        ].map((value) => (
+          <div class="card p-6 text-center">
+            <div class="text-4xl mb-4">{value.icon}</div>
+            <h3 class="font-semibold text-dark mb-2">{value.title}</h3>
+            <p class="text-gray-secondary text-sm leading-relaxed">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COLABORACIÓN BALONMANO -->
+  <section class="section-padding">
+    <div class="container-content">
+      <div class="bg-primary/5 border border-primary/20 rounded-2xl p-8 md:p-12">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="text-6xl flex-shrink-0">🤾</div>
+          <div>
+            <h2 class="text-2xl font-bold text-dark mb-3">
+              Colaboración con la Federación Madrileña de Balonmano
+            </h2>
+            <p class="text-gray-secondary leading-relaxed">
+              Silvia Arenal Antón, nuestra directora, colabora como fisioterapeuta oficial con la
+              <strong class="text-dark">Federación Madrileña de Balonmano</strong>. Esta colaboración
+              refleja la confianza que deportistas y entidades deportivas depositan en nuestra clínica,
+              y nos permite mantenernos a la vanguardia en fisioterapia deportiva.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-padding bg-primary">
+    <div class="container-content text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">¿Quieres conocernos en persona?</h2>
+      <p class="text-white/80 mb-8 max-w-xl mx-auto">
+        Pide tu cita y ven a conocer nuestras instalaciones. Estaremos encantados de atenderte.
+      </p>
+      <a href="/contacto" class="btn-white text-base px-8 py-4">
+        Pide tu cita
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

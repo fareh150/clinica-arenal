@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout
+  title="Blog de Fisioterapia | Clínica Arenal Madrid"
+  description="Consejos de fisioterapia, ejercicios y salud. Blog de la Clínica Arenal en Carabanchel, Madrid."
+  canonical="https://www.fisioarenal.com/blog"
+>
+
+  <!-- HERO -->
+  <section class="bg-gray-light section-padding">
+    <div class="container-content text-center">
+      <span class="text-primary font-semibold text-sm uppercase tracking-wider">Consejos y salud</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-dark mt-2 mb-4">
+        Blog de Fisioterapia
+      </h1>
+      <p class="text-gray-secondary text-lg max-w-2xl mx-auto">
+        Artículos, consejos y recursos sobre fisioterapia, ejercicio y bienestar
+        escritos por nuestro equipo de profesionales.
+      </p>
+    </div>
+  </section>
+
+  <!-- ARTÍCULOS -->
+  <section class="section-padding">
+    <div class="container-content">
+      {sortedPosts.length === 0 ? (
+        <div class="text-center py-20">
+          <div class="text-6xl mb-6">📝</div>
+          <h2 class="text-2xl font-bold text-dark mb-3">Próximamente</h2>
+          <p class="text-gray-secondary max-w-md mx-auto mb-8">
+            Estamos preparando artículos con consejos de fisioterapia, ejercicios y
+            todo lo que necesitas saber para cuidar tu salud.
+          </p>
+          <a href="/contacto" class="btn-primary">Contactar con nosotros</a>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {sortedPosts.map((post) => (
+            <a
+              href={`/blog/${post.slug}`}
+              class="card group overflow-hidden hover:-translate-y-1 transition-transform duration-200"
+            >
+              {post.data.image && (
+                <div class="aspect-video overflow-hidden bg-gray-100">
+                  <img
+                    src={post.data.image}
+                    alt={post.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    width="400"
+                    height="225"
+                  />
+                </div>
+              )}
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  {post.data.category && (
+                    <span class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full">
+                      {post.data.category}
+                    </span>
+                  )}
+                  <time class="text-xs text-gray-secondary" datetime={post.data.date}>
+                    {new Date(post.data.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </time>
+                </div>
+                <h2 class="text-lg font-semibold text-dark mb-2 group-hover:text-primary transition-colors leading-snug">
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-secondary text-sm leading-relaxed line-clamp-3">
+                  {post.data.excerpt}
+                </p>
+                <span class="mt-4 inline-flex items-center gap-1 text-primary text-sm font-medium">
+                  Leer artículo
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { services, getServiceBySlug } from '../../data/services';
+
+export async function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const service = getServiceBySlug(slug!);
+
+if (!service) {
+  return Astro.redirect('/tratamientos');
+}
+
+const relatedServices = service.relatedSlugs
+  .map((s) => services.find((srv) => srv.slug === s))
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title={`${service.title} | Clínica Arenal Madrid`}
+  description={service.metaDescription}
+  canonical={`https://www.fisioarenal.com/tratamientos/${service.slug}`}
+>
+
+  <!-- HERO -->
+  <section class="relative h-72 md:h-96 flex items-end overflow-hidden bg-dark">
+    <div class="absolute inset-0">
+      <img
+        src={service.image}
+        alt={`${service.title} en Clínica Arenal`}
+        class="w-full h-full object-cover opacity-40"
+        width="1200"
+        height="500"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent"></div>
+    </div>
+    <div class="relative container-content pb-10">
+      <nav class="flex items-center gap-2 text-white/60 text-sm mb-3" aria-label="Ruta de navegación">
+        <a href="/" class="hover:text-white transition-colors">Inicio</a>
+        <span>/</span>
+        <a href="/tratamientos" class="hover:text-white transition-colors">Tratamientos</a>
+        <span>/</span>
+        <span class="text-white">{service.title}</span>
+      </nav>
+      <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-4">
+        <span class="text-4xl">{service.icon}</span>
+        {service.h1}
+      </h1>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <section class="section-padding">
+    <div class="container-content">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+        <!-- Columna principal -->
+        <div class="lg:col-span-2 space-y-10">
+
+          <!-- Descripción -->
+          <div>
+            <h2 class="text-2xl font-bold text-dark mb-4">¿Qué es {service.title}?</h2>
+            <p class="text-gray-secondary leading-relaxed text-lg">{service.description}</p>
+          </div>
+
+          <!-- Patologías -->
+          <div>
+            <h2 class="text-2xl font-bold text-dark mb-4">¿Qué patologías tratamos?</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {service.conditions.map((condition) => (
+                <li class="flex items-center gap-3 bg-gray-light rounded-lg px-4 py-3">
+                  <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span class="text-gray-text text-sm font-medium">{condition}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Beneficios -->
+          <div>
+            <h2 class="text-2xl font-bold text-dark mb-4">Beneficios del tratamiento</h2>
+            <ul class="space-y-3">
+              {service.benefits.map((benefit) => (
+                <li class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span class="text-gray-secondary leading-relaxed">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+
+          <!-- CTA Card -->
+          <div class="bg-primary rounded-2xl p-6 text-white sticky top-24">
+            <h3 class="text-xl font-bold mb-2">¿Necesitas este tratamiento?</h3>
+            <p class="text-white/80 text-sm mb-6">
+              Pide tu cita y uno de nuestros fisioterapeutas te hará una valoración personalizada.
+            </p>
+            <a href="/contacto" class="btn-white w-full justify-center mb-3">
+              Pedir cita online
+            </a>
+            <a href="tel:+34912507727" class="flex items-center justify-center gap-2 text-white/90 hover:text-white text-sm font-medium transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              912 50 77 27
+            </a>
+            <div class="border-t border-white/20 mt-4 pt-4">
+              <a href="https://wa.me/34601335732" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 text-white/90 hover:text-white text-sm font-medium transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- Datos de contacto rápido -->
+          <div class="card p-5 space-y-3">
+            <h3 class="font-semibold text-dark text-sm uppercase tracking-wider">Dónde estamos</h3>
+            <p class="text-gray-secondary text-sm">C/ Alba de Tormes, 35<br/>Carabanchel, 28025 Madrid</p>
+            <p class="text-gray-secondary text-sm">
+              <span class="font-medium text-dark">Metro:</span> San Francisco (L11)<br/>
+              Eugenia de Montijo (L5)
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRATAMIENTOS RELACIONADOS -->
+  {relatedServices.length > 0 && (
+    <section class="section-padding bg-gray-light">
+      <div class="container-content">
+        <h2 class="text-2xl font-bold text-dark mb-8">Tratamientos relacionados</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {relatedServices.map((related) => related && (
+            <a href={`/tratamientos/${related.slug}`} class="card group p-6 hover:-translate-y-1 transition-transform duration-200">
+              <div class="text-2xl mb-3">{related.icon}</div>
+              <h3 class="font-semibold text-dark mb-2 group-hover:text-primary transition-colors">{related.title}</h3>
+              <p class="text-gray-secondary text-sm leading-relaxed">{related.shortDescription}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+</BaseLayout>

@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const galleryImages = [
+  { src: '/images/gallery/instalacion-pasillo.jpg', alt: 'Pasillo de la Clínica Arenal en Carabanchel' },
+  { src: '/images/gallery/instalacion-sala-1.jpg', alt: 'Sala de tratamiento 1 — Clínica Arenal' },
+  { src: '/images/gallery/instalacion-sala-2.jpg', alt: 'Sala de tratamiento 2 — Clínica Arenal' },
+  { src: '/images/gallery/instalacion-sala-3.jpg', alt: 'Sala de tratamiento 3 — Clínica Arenal' },
+  { src: '/images/gallery/instalacion-sala-4.jpg', alt: 'Sala de tratamiento 4 — Clínica Arenal' },
+  { src: '/images/gallery/instalacion-sala-5.jpg', alt: 'Sala de tratamiento 5 — Clínica Arenal' },
+  { src: '/images/gallery/instalacion-sala-6.jpg', alt: 'Sala de tratamiento 6 — Clínica Arenal' },
+];
+---
+
+<BaseLayout
+  title="Nuestras Instalaciones | Clínica Arenal Carabanchel"
+  description="Conoce las instalaciones de la Clínica Arenal. Salas de tratamiento individualizadas para tu comodidad y recuperación en Carabanchel, Madrid."
+  canonical="https://www.fisioarenal.com/instalaciones"
+>
+
+  <!-- HERO -->
+  <section class="bg-gray-light section-padding">
+    <div class="container-content text-center">
+      <span class="text-primary font-semibold text-sm uppercase tracking-wider">La clínica</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-dark mt-2 mb-4">
+        Nuestras Instalaciones
+      </h1>
+      <p class="text-gray-secondary text-lg max-w-2xl mx-auto leading-relaxed">
+        La Clínica Arenal dispone de las instalaciones necesarias para recibir un trato individualizado,
+        profesional y cercano. Garantizando así tu bienestar y recuperación.
+      </p>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section-padding">
+    <div class="container-content">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        id="gallery"
+      >
+        {galleryImages.map((img, index) => (
+          <button
+            class="group relative overflow-hidden rounded-xl aspect-video bg-gray-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+            data-index={index}
+            data-src={img.src}
+            data-alt={img.alt}
+            aria-label={`Ver imagen: ${img.alt}`}
+            onclick={`openLightbox(${index})`}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              width="600"
+              height="338"
+              loading={index > 2 ? 'lazy' : 'eager'}
+            />
+            <div class="absolute inset-0 bg-dark/0 group-hover:bg-dark/30 transition-colors duration-200 flex items-center justify-center">
+              <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+              </svg>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-[100] bg-black/90 hidden items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visor de imágenes"
+  >
+    <button
+      onclick="closeLightbox()"
+      class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+      aria-label="Cerrar"
+    >
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <button
+      onclick="prevImage()"
+      class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors"
+      aria-label="Imagen anterior"
+    >
+      <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <div class="max-w-4xl w-full">
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="w-full max-h-[80vh] object-contain rounded-lg"
+      />
+      <p id="lightbox-caption" class="text-white/70 text-center text-sm mt-3"></p>
+    </div>
+
+    <button
+      onclick="nextImage()"
+      class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors"
+      aria-label="Imagen siguiente"
+    >
+      <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- CTA -->
+  <section class="section-padding bg-primary">
+    <div class="container-content text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">¿Quieres visitarnos?</h2>
+      <p class="text-white/80 mb-8 max-w-xl mx-auto">
+        Estamos en C/ Alba de Tormes, 35, Carabanchel, Madrid. Ven a conocernos.
+      </p>
+      <a href="/contacto" class="btn-white text-base px-8 py-4">Cómo llegar</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script is:inline>
+  const images = [
+    { src: '/images/gallery/instalacion-pasillo.jpg', alt: 'Pasillo de la Clínica Arenal en Carabanchel' },
+    { src: '/images/gallery/instalacion-sala-1.jpg', alt: 'Sala de tratamiento 1 — Clínica Arenal' },
+    { src: '/images/gallery/instalacion-sala-2.jpg', alt: 'Sala de tratamiento 2 — Clínica Arenal' },
+    { src: '/images/gallery/instalacion-sala-3.jpg', alt: 'Sala de tratamiento 3 — Clínica Arenal' },
+    { src: '/images/gallery/instalacion-sala-4.jpg', alt: 'Sala de tratamiento 4 — Clínica Arenal' },
+    { src: '/images/gallery/instalacion-sala-5.jpg', alt: 'Sala de tratamiento 5 — Clínica Arenal' },
+    { src: '/images/gallery/instalacion-sala-6.jpg', alt: 'Sala de tratamiento 6 — Clínica Arenal' },
+  ];
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    updateLightbox();
+    const lb = document.getElementById('lightbox');
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateLightbox();
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    document.getElementById('lightbox-img').src = images[currentIndex].src;
+    document.getElementById('lightbox-img').alt = images[currentIndex].alt;
+    document.getElementById('lightbox-caption').textContent = images[currentIndex].alt;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+  });
+
+  document.getElementById('lightbox')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  });
+</script>

@@ -4,14 +4,11 @@ const blog = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
+    excerpt: z.string(),
+    date: z.coerce.date(),
     author: z.string().default('Clínica Arenal'),
-    image: z.object({
-      url: z.string(),
-      alt: z.string(),
-    }).optional(),
+    image: z.string().optional(),
+    category: z.string().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
   }),

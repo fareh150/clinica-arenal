@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { services } from '../../data/services';
+---
+
+<BaseLayout
+  title="Tratamientos de Fisioterapia | Clínica Arenal Madrid"
+  description="Fisioterapia deportiva, osteopatía, pilates, punción seca, hipopresivos y más. Tratamientos personalizados en Carabanchel, Madrid."
+  canonical="https://www.fisioarenal.com/tratamientos"
+>
+
+  <!-- HERO -->
+  <section class="bg-gray-light section-padding">
+    <div class="container-content text-center">
+      <span class="text-primary font-semibold text-sm uppercase tracking-wider">Especialidades</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-dark mt-2 mb-4">
+        Tratamientos y Especialidades
+      </h1>
+      <p class="text-gray-secondary text-lg max-w-2xl mx-auto leading-relaxed">
+        Ofrecemos un amplio abanico de tratamientos de fisioterapia, osteopatía y ejercicio terapéutico
+        adaptados a las necesidades de cada paciente.
+      </p>
+    </div>
+  </section>
+
+  <!-- GRID DE TRATAMIENTOS -->
+  <section class="section-padding">
+    <div class="container-content">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((service) => (
+          <a
+            href={`/tratamientos/${service.slug}`}
+            class="card group overflow-hidden hover:-translate-y-1 transition-transform duration-200"
+          >
+            <div class="aspect-video overflow-hidden bg-gray-100">
+              <img
+                src={service.image}
+                alt={`${service.title} en Clínica Arenal`}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                width="400"
+                height="225"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">{service.icon}</span>
+                <h2 class="text-lg font-semibold text-dark group-hover:text-primary transition-colors">
+                  {service.title}
+                </h2>
+              </div>
+              <p class="text-gray-secondary text-sm leading-relaxed mb-4">
+                {service.shortDescription}
+              </p>
+              <span class="text-primary text-sm font-medium inline-flex items-center gap-1">
+                Ver tratamiento
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-padding bg-primary">
+    <div class="container-content text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">¿No encuentras tu tratamiento?</h2>
+      <p class="text-white/80 mb-8 max-w-xl mx-auto">
+        Contáctanos y te orientaremos sobre el tratamiento más adecuado para tu caso.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contacto" class="btn-white text-base px-8 py-4">Pedir cita</a>
+        <a href="tel:+34912507727" class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-colors">
+          912 50 77 27
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
