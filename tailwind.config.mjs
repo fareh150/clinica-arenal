@@ -7,17 +7,18 @@ export default {
         primary: {
           DEFAULT: '#34A522',
           dark: '#1E7A15',
-          light: '#5CB85C',
+          light: '#4DB847',
         },
         gray: {
-          text: '#333333',
+          text: '#2A2A28',
           secondary: '#6B7280',
-          light: '#F8F9FA',
+          light: '#F5F4F0',
         },
-        dark: '#1A1A2E',
+        dark: '#1C1C1A',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
       },
       maxWidth: {
         content: '1200px',

@@ -9,11 +9,15 @@
   }
 
   body {
-    @apply text-gray-text bg-white;
+    @apply text-gray-text bg-[#FAFAF8];
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-dark;
+  h1, h2 {
+    @apply font-serif font-bold text-dark;
+  }
+
+  h3, h4, h5, h6 {
+    @apply font-sans font-semibold text-dark;
   }
 }
 
@@ -39,7 +43,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-dark mb-4;
+    @apply font-serif text-3xl md:text-4xl font-bold text-dark mb-4;
   }
 
   .section-subtitle {
