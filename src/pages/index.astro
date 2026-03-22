@@ -82,10 +82,22 @@ const featuredTestimonials = testimonials.filter((t) => t.featured);
         </div>
       </div>
     </div>
+
+    <!-- Scroll down hint -->
+    <a
+      href="#servicios"
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 text-white/30 hover:text-white/60 transition-colors"
+      aria-label="Ver tratamientos"
+    >
+      <span class="text-xs uppercase tracking-widest">Tratamientos</span>
+      <svg class="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </a>
   </section>
 
   <!-- SERVICIOS DESTACADOS -->
-  <section class="section-padding bg-gray-light">
+  <section id="servicios" class="section-padding bg-gray-light">
     <div class="container-content">
       <div class="text-center mb-12">
         <span class="text-primary font-medium text-sm uppercase tracking-widest">Especialidades</span>
