@@ -10,16 +10,18 @@ import { team } from '../data/team';
 >
 
   <!-- HERO -->
-  <section class="bg-gray-light section-padding">
-    <div class="container-content text-center">
-      <span class="text-primary font-semibold text-sm uppercase tracking-wider">El equipo</span>
-      <h1 class="text-4xl md:text-5xl font-bold text-dark mt-2 mb-4">
-        Nuestro Equipo de Fisioterapeutas
-      </h1>
-      <p class="text-gray-secondary text-lg max-w-2xl mx-auto leading-relaxed">
-        Fisioterapeutas y osteópatas con amplia experiencia que, con un trato cercano y profesional,
-        ponemos nuestros servicios a tu disposición para tratar tus dolencias y mejorar tu bienestar.
-      </p>
+  <section class="bg-gray-light section-padding border-b border-gray-200/60">
+    <div class="container-content">
+      <div class="max-w-2xl">
+        <span class="text-primary font-medium text-sm uppercase tracking-widest">El equipo</span>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-dark mt-3 mb-4 leading-tight">
+          Nuestro Equipo de Fisioterapeutas
+        </h1>
+        <p class="text-gray-secondary text-lg leading-relaxed">
+          Fisioterapeutas y osteópatas con amplia experiencia que, con un trato cercano y profesional,
+          ponemos nuestros servicios a tu disposición para tratar tus dolencias y mejorar tu bienestar.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -99,13 +101,31 @@ import { team } from '../data/team';
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: '🤝', title: 'Trato cercano', description: 'Atención personalizada donde cada paciente es único y recibe un trato humano y empático.' },
-          { icon: '🎓', title: 'Formación continua', description: 'Nuestro equipo se forma constantemente para ofrecerte las técnicas más efectivas y actualizadas.' },
-          { icon: '🔬', title: 'Evidencia científica', description: 'Aplicamos técnicas respaldadas por la evidencia científica para garantizar resultados óptimos.' },
-          { icon: '❤️', title: 'Vocación', description: 'Amamos lo que hacemos. Nuestra vocación por la salud es el motor que impulsa nuestro trabajo cada día.' },
+          {
+            title: 'Trato cercano',
+            description: 'Atención personalizada donde cada paciente es único y recibe un trato humano y empático.',
+            svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a4 4 0 00-5.197-3.787M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a4 4 0 015.197-3.787M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>'
+          },
+          {
+            title: 'Formación continua',
+            description: 'Nuestro equipo se forma constantemente para ofrecerte las técnicas más efectivas y actualizadas.',
+            svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422A12.083 12.083 0 0121 13.5c0 2.485-.802 4.78-2.153 6.643M12 14l-6.16-3.422A12.083 12.083 0 003 13.5c0 2.485.802 4.78 2.153 6.643M12 20.01V14"/>'
+          },
+          {
+            title: 'Evidencia científica',
+            description: 'Aplicamos técnicas respaldadas por la evidencia científica para garantizar resultados óptimos.',
+            svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>'
+          },
+          {
+            title: 'Vocación',
+            description: 'Amamos lo que hacemos. Nuestra vocación por la salud es el motor que impulsa nuestro trabajo cada día.',
+            svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>'
+          },
         ].map((value) => (
           <div class="card p-6 text-center">
-            <div class="text-4xl mb-4">{value.icon}</div>
+            <div class="w-12 h-12 bg-primary/8 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={value.svg} />
+            </div>
             <h3 class="font-semibold text-dark mb-2">{value.title}</h3>
             <p class="text-gray-secondary text-sm leading-relaxed">{value.description}</p>
           </div>
@@ -119,7 +139,11 @@ import { team } from '../data/team';
     <div class="container-content">
       <div class="bg-primary/5 border border-primary/20 rounded-2xl p-8 md:p-12">
         <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="text-6xl flex-shrink-0">🤾</div>
+          <div class="w-16 h-16 bg-primary/15 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+          </div>
           <div>
             <h2 class="text-2xl font-bold text-dark mb-3">
               Colaboración con la Federación Madrileña de Balonmano
@@ -137,13 +161,13 @@ import { team } from '../data/team';
   </section>
 
   <!-- CTA -->
-  <section class="section-padding bg-primary">
+  <section class="section-padding bg-dark">
     <div class="container-content text-center">
-      <h2 class="text-3xl font-bold text-white mb-4">¿Quieres conocernos en persona?</h2>
-      <p class="text-white/80 mb-8 max-w-xl mx-auto">
+      <h2 class="text-3xl font-serif font-bold text-white mb-4">¿Quieres conocernos en persona?</h2>
+      <p class="text-white/65 mb-8 max-w-xl mx-auto">
         Pide tu cita y ven a conocer nuestras instalaciones. Estaremos encantados de atenderte.
       </p>
-      <a href="/contacto" class="btn-white text-base px-8 py-4">
+      <a href="/contacto" class="btn-primary text-base px-8 py-4">
         Pide tu cita
       </a>
     </div>
