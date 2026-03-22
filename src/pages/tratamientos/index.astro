@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceIcon from '../../components/ServiceIcon.astro';
 import { services } from '../../data/services';
 ---
 
@@ -10,16 +11,18 @@ import { services } from '../../data/services';
 >
 
   <!-- HERO -->
-  <section class="bg-gray-light section-padding">
-    <div class="container-content text-center">
-      <span class="text-primary font-semibold text-sm uppercase tracking-wider">Especialidades</span>
-      <h1 class="text-4xl md:text-5xl font-bold text-dark mt-2 mb-4">
-        Tratamientos y Especialidades
-      </h1>
-      <p class="text-gray-secondary text-lg max-w-2xl mx-auto leading-relaxed">
-        Ofrecemos un amplio abanico de tratamientos de fisioterapia, osteopatía y ejercicio terapéutico
-        adaptados a las necesidades de cada paciente.
-      </p>
+  <section class="bg-gray-light section-padding border-b border-gray-200/60">
+    <div class="container-content">
+      <div class="max-w-2xl">
+        <span class="text-primary font-medium text-sm uppercase tracking-widest">Especialidades</span>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-dark mt-3 mb-4 leading-tight">
+          Tratamientos y Especialidades
+        </h1>
+        <p class="text-gray-secondary text-lg leading-relaxed">
+          Ofrecemos un amplio abanico de tratamientos de fisioterapia, osteopatía y ejercicio terapéutico
+          adaptados a las necesidades de cada paciente.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -43,7 +46,9 @@ import { services } from '../../data/services';
             </div>
             <div class="p-6">
               <div class="flex items-center gap-3 mb-3">
-                <span class="text-2xl">{service.icon}</span>
+                <div class="w-8 h-8 bg-primary/8 rounded-lg flex items-center justify-center text-primary flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+                  <ServiceIcon slug={service.slug} class="w-4 h-4" />
+                </div>
                 <h2 class="text-lg font-semibold text-dark group-hover:text-primary transition-colors">
                   {service.title}
                 </h2>
@@ -65,15 +70,15 @@ import { services } from '../../data/services';
   </section>
 
   <!-- CTA -->
-  <section class="section-padding bg-primary">
+  <section class="section-padding bg-dark">
     <div class="container-content text-center">
-      <h2 class="text-3xl font-bold text-white mb-4">¿No encuentras tu tratamiento?</h2>
-      <p class="text-white/80 mb-8 max-w-xl mx-auto">
+      <h2 class="text-3xl font-serif font-bold text-white mb-4">¿No encuentras tu tratamiento?</h2>
+      <p class="text-white/65 mb-8 max-w-xl mx-auto">
         Contáctanos y te orientaremos sobre el tratamiento más adecuado para tu caso.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/contacto" class="btn-white text-base px-8 py-4">Pedir cita</a>
-        <a href="tel:+34912507727" class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-colors">
+        <a href="/contacto" class="btn-primary text-base px-8 py-4">Pedir cita</a>
+        <a href="tel:+34912507727" class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/30 text-white font-semibold rounded-lg hover:border-white/60 transition-colors">
           912 50 77 27
         </a>
       </div>

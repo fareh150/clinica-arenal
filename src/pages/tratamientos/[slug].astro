@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceIcon from '../../components/ServiceIcon.astro';
 import { services, getServiceBySlug } from '../../data/services';
 
 export async function getStaticPaths() {
@@ -46,10 +47,14 @@ const relatedServices = service.relatedSlugs
         <span>/</span>
         <span class="text-white">{service.title}</span>
       </nav>
-      <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-4">
-        <span class="text-4xl">{service.icon}</span>
-        {service.h1}
-      </h1>
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center flex-shrink-0">
+          <ServiceIcon slug={service.slug} class="w-6 h-6 text-white" />
+        </div>
+        <h1 class="text-3xl md:text-5xl font-serif font-bold text-white">
+          {service.h1}
+        </h1>
+      </div>
     </div>
   </section>
 
@@ -151,7 +156,9 @@ const relatedServices = service.relatedSlugs
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {relatedServices.map((related) => related && (
             <a href={`/tratamientos/${related.slug}`} class="card group p-6 hover:-translate-y-1 transition-transform duration-200">
-              <div class="text-2xl mb-3">{related.icon}</div>
+              <div class="w-10 h-10 bg-primary/8 rounded-lg flex items-center justify-center text-primary mb-3 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+                <ServiceIcon slug={related.slug} class="w-5 h-5" />
+              </div>
               <h3 class="font-semibold text-dark mb-2 group-hover:text-primary transition-colors">{related.title}</h3>
               <p class="text-gray-secondary text-sm leading-relaxed">{related.shortDescription}</p>
             </a>
